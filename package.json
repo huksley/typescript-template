@@ -1,0 +1,50 @@
+{
+  "name": "typescript-template",
+  "description": "My project",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9.0 <11.0.0",
+    "yarn": ">=1.12.3"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "dotenv": "^7.0.0",
+    "nodemon": "^1.18.11",
+    "shx": "^0.3.2",
+    "typescript": "^3.4.3",
+    "winston": "^2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^11.13.5",
+    "concurrently": "^4.1.0",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "scripts": {
+    "clean": "shx rm -Rf build node_modules",
+    "dev": "cross-env nodemon -r ts-node/register src/index.ts",
+    "start": "cross-env node ./build/index.js",
+    "build": "tsc -p .",
+    "format": "prettier \"src/**/*.{js,ts,tsx}\" \"test/**/*.{js,ts,tsx}\" --write",
+    "lint": "tslint \"src/**/*.js\" \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "parser": "typescript",
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|jsx|ts|tsx)\"",
+      "pre-push": "yarn lint && yarn run -s build && yarn test"
+    }
+  }
+}
