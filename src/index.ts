@@ -1,10 +1,4 @@
-import * as winston from 'winston'
-import * as dotenv from 'dotenv'
-const config = dotenv.config().parsed || {}
+import { logger } from './logger'
+import { config } from './config'
 
-winston.configure({
-  level: config.LOG_LEVEL || 'debug',
-  transports: [new winston.transports.Console({})],
-})
-
-winston.info('Starting')
+logger.info(`Starting, env ${config.NODE_ENV} log ${config.LOG_LEVEL}`)
